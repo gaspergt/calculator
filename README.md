@@ -51,7 +51,7 @@ Luego, sigue estos pasos para levantar el proyecto:
 
     Esto lanzará el servidor de desarrollo de Vite y la interfaz gráfica estará disponible en `http://localhost:3000`.
 
-> [!IMPORTANT] **IMPORTANTE**:
+> [!IMPORTANT]
 > - Para levantar el proyecto React y conectarlo correctamente con AWS, asegúrate de tener una cuenta de AWS y tener configurado el **AWS CLI** en tu entorno. Puedes seguir las instrucciones oficiales de AWS para configurar el CLI [aquí](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
 
 ### 3. Configuración del Backend (Java)
