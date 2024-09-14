@@ -76,7 +76,7 @@ El servicio backend se ejecuta como una función Lambda en AWS. Para configurarl
 
     ```bash
     cd backend
-    mvn clean install
+     mvn clean package
     ```
 
     Esto generará un archivo JAR en el directorio `target`.
