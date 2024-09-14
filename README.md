@@ -121,14 +121,20 @@ El servicio backend se ejecuta como una función Lambda en AWS. Para configurarl
 
 ### 4. Configurar las variables de entorno
 
-Crea un archivo `.env` en la raíz del proyecto `frontend` y añade el siguiente contenido:
+La configuración del endpoint de la API se realiza directamente dentro de `App.jsx` en el frontend de React.
 
-```bash
-VITE_API_URL=https://<tu-endpoint-de-api-gateway>
+Modifica la siguiente sección en `App.jsx` para incluir el endpoint generado por Serverless Framework:
+
+```jsx
+const response = await axios.post(
+  'https://<tu-endpoint-de-api-gateway>/dev/calculate',
+  {
+    expression: expression,
+  }
+);
 ```
 
 Reemplaza `<tu-endpoint-de-api-gateway>` con el endpoint que generó el despliegue de Serverless Framework. Puedes obtener este endpoint desde la salida del comando `serverless deploy`.
-
 ## Alojar el frontend en un bucket de AWS S3
 
 Si deseas alojar el frontend en un bucket de **AWS S3** y usar **CloudFront** para distribuirlo, sigue estos pasos:
