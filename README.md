@@ -209,18 +209,6 @@ Si deseas alojar el frontend en un bucket de **AWS S3** y usar **CloudFront** pa
 - Una vez que el frontend y el backend estén configurados y corriendo, puedes acceder a la interfaz gráfica de la calculadora.
 - Ingresa las operaciones matemáticas en la calculadora y envía la solicitud, que será procesada por la función Lambda en AWS.
 
-## Despliegue
-
-Para desplegar el proyecto en un entorno de producción, puedes seguir estos pasos:
-
-1. **Frontend**: Puedes construir el frontend para producción con:
-    ```bash
-    npm run build
-    ```
-    Luego, sube los archivos generados en la carpeta `dist` a un servicio de hosting estático como **AWS S3** o **Netlify**.
-
-2. **Backend**: Asegúrate de que tu función Lambda y API Gateway estén correctamente configurados en tu cuenta de AWS para manejar las solicitudes.
-
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Siéntete libre de abrir un **issue** o un **pull request** con tus sugerencias o mejoras.
