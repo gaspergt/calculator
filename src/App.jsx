@@ -24,7 +24,6 @@ function App() {
     try {
       setLoading(true);
 
-      // Hacemos la solicitud a la función Lambda
       const response = await axios.post(
         'https://obgirtk09l.execute-api.us-east-1.amazonaws.com/dev/calculate',
         {
