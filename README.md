@@ -1,8 +1,24 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Calculadora Frontend + API
 
-Currently, two official plugins are available:
+Esta es una calculadora frontend desplegada en un bucket de **Amazon S3** que está conectada a una API servida a través de **AWS API Gateway**. Puedes utilizar esta calculadora para realizar operaciones básicas como suma, resta, multiplicación y división.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## URL del Frontend
+
+El frontend de la calculadora está disponible en la siguiente URL:
+
+**http://frontend-calculator-luislima.s3-website-us-east-1.amazonaws.com/**
+
+> [!IMPORTANT]
+> Asegúrate de acceder a la URL utilizando `http://` y no `https://`, ya que en algunos navegadores puede ocurrir una redirección automática a `https://`, lo cual no es soportado en este caso.
+
+## Funcionamiento de la Calculadora
+
+1. Ingresa la operación matemática utilizando los botones de la calculadora.
+2. Cuando presiones el botón `=`, la calculadora enviará una solicitud a la API de backend para procesar la operación y devolver el resultado.
+3. La respuesta aparecerá directamente en la pantalla de la calculadora.
+
+
+
+¡Disfruta utilizando la calculadora!
+
