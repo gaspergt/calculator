@@ -86,26 +86,24 @@ El servicio backend se ejecuta como una función Lambda en AWS. Para configurarl
     En el archivo `serverless.yml`, configura tu función Lambda para que utilice el archivo JAR generado por Maven. El archivo `serverless.yml` debería tener un aspecto similar a esto:
 
     ```yaml
-    service: calculadora-backend
+    service: java-calculator-lambda
 
     provider:
-      name: aws
-      runtime: java11
-      region: us-east-1
-
-    package:
-      artifact: target/<nombre-del-jar>.jar
+    name: aws
+    runtime: java11
+    region: us-east-1
+    lambdaHashingVersion: 20201221
 
     functions:
-      calculadora:
-        handler: <paquete>.Handler  # Reemplaza con el paquete y clase de tu Lambda handler
+    calculator:
+        handler: com.serverless.Handler::handleRequest
         events:
-          - http:
-              path: calcular
-              method: post
+        - http:
+            path: calculate
+            method: post
 
-    plugins:
-      - serverless-deployment-bucket
+    package:
+        artifact: target/hello-dev.jar
     ```
 
     - Asegúrate de reemplazar `<nombre-del-jar>.jar` con el nombre correcto del archivo JAR generado.
