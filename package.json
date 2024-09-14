@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "serverless": "^4.3.2"
-  },
-  "devDependencies": {
-    "serverless-offline": "^13.8.0"
-  }
-}
