@@ -1,3 +1,4 @@
+
 # Calculadora
 
 Este proyecto es una calculadora web que utiliza **React** como frontend y un servicio backend en **Java** que se ejecuta en **AWS Lambda**. El frontend está basado en **Vite**, mientras que el backend se expone mediante un **API Gateway** en AWS, aceptando solicitudes mediante el método POST.
@@ -9,7 +10,9 @@ Antes de comenzar, asegúrate de tener instalados los siguientes requisitos en t
 - **Maven** (para construir el servicio backend en Java)
 - **JDK** (Java Development Kit)
 - **Node.js** (para el frontend basado en Vite)
+- **Serverless Framework** (para desplegar la función Lambda)
 - **Cuenta de AWS** (para implementar la función Lambda y el API Gateway)
+- **AWS CLI** (para interactuar con AWS desde la línea de comandos)
 
 ## Estructura del proyecto
 
@@ -51,21 +54,72 @@ Luego, sigue estos pasos para levantar el proyecto:
 
     Esto lanzará el servidor de desarrollo de Vite y la interfaz gráfica estará disponible en `http://localhost:3000`.
 
+
 > [!IMPORTANT]
-> - Para levantar el proyecto React y conectarlo correctamente con AWS, asegúrate de tener una cuenta de AWS y tener configurado el **AWS CLI** en tu entorno. Puedes seguir las instrucciones oficiales de AWS para configurar el CLI [aquí](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
+> Para levantar el proyecto React y conectarlo correctamente con AWS, asegúrate de tener una cuenta de AWS y tener configurado el **AWS CLI** en tu entorno. Puedes seguir las instrucciones oficiales de AWS para configurar el CLI [aquí](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
 
 ### 3. Configuración del Backend (Java)
 
-El servicio backend se ejecuta como una función Lambda en AWS. Para configurarlo, sigue los siguientes pasos:
+El servicio backend se ejecuta como una función Lambda en AWS. Para configurarlo y desplegarlo con **Serverless Framework**, sigue estos pasos:
 
-1. **Compilar el backend** con Maven:
+1. **Instalar Serverless Framework** si no lo tienes instalado:
+
+    Si aún no tienes Serverless Framework instalado, puedes instalarlo globalmente con npm:
+
+    ```bash
+    npm install -g serverless
+    ```
+
+2. **Compilar el backend con Maven**:
+
+    Asegúrate de estar en el directorio `backend` y compila el proyecto usando Maven:
+
     ```bash
     cd backend
     mvn clean install
     ```
 
-2. **Implementar en AWS Lambda**:
-    Utiliza AWS CLI o una herramienta como **Serverless Framework** para implementar la función Lambda. Asegúrate de que la función esté conectada a un **API Gateway** que acepte solicitudes POST.
+    Esto generará un archivo JAR en el directorio `target`.
+
+3. **Configurar Serverless Framework para el despliegue**:
+
+    En el archivo `serverless.yml`, configura tu función Lambda para que utilice el archivo JAR generado por Maven. El archivo `serverless.yml` debería tener un aspecto similar a esto:
+
+    ```yaml
+    service: calculadora-backend
+
+    provider:
+      name: aws
+      runtime: java11
+      region: us-east-1
+
+    package:
+      artifact: target/<nombre-del-jar>.jar
+
+    functions:
+      calculadora:
+        handler: <paquete>.Handler  # Reemplaza con el paquete y clase de tu Lambda handler
+        events:
+          - http:
+              path: calcular
+              method: post
+
+    plugins:
+      - serverless-deployment-bucket
+    ```
+
+    - Asegúrate de reemplazar `<nombre-del-jar>.jar` con el nombre correcto del archivo JAR generado.
+    - Reemplaza `<paquete>.Handler` con el nombre completo de tu clase que maneja la función Lambda.
+
+4. **Deploy con Serverless Framework**:
+
+    Una vez configurado `serverless.yml`, puedes desplegar el backend a AWS Lambda ejecutando:
+
+    ```bash
+    serverless deploy
+    ```
+
+    Este comando subirá tu código a AWS Lambda, configurará el API Gateway y generará un endpoint HTTP POST para tu servicio.
 
 ### 4. Configurar las variables de entorno
 
@@ -75,7 +129,7 @@ Crea un archivo `.env` en la raíz del proyecto `frontend` y añade el siguiente
 VITE_API_URL=https://<tu-endpoint-de-api-gateway>
 ```
 
-Reemplaza `<tu-endpoint-de-api-gateway>` con el endpoint de tu API Gateway en AWS.
+Reemplaza `<tu-endpoint-de-api-gateway>` con el endpoint que generó el despliegue de Serverless Framework. Puedes obtener este endpoint desde la salida del comando `serverless deploy`.
 
 ## Alojar el frontend en un bucket de AWS S3
 
