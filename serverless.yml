@@ -2,7 +2,7 @@ service: java-calculator-lambda
 
 provider:
   name: aws
-  runtime: java11
+  runtime: java17
   region: us-east-1
   lambdaHashingVersion: 20201221
 
@@ -79,6 +79,5 @@ functions:
 package:
   artifact: target/hello-dev.jar
 
-plugins:
-  - serverless-offline
-
+#plugins:
+#  - serverless-java-maven
