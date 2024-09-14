@@ -1,4 +1,4 @@
-# calculator
+# Calculadora
 
 Este proyecto es una calculadora web que utiliza **React** como frontend y un servicio backend en **Java** que se ejecuta en **AWS Lambda**. El frontend está basado en **Vite**, mientras que el backend se expone mediante un **API Gateway** en AWS, aceptando solicitudes mediante el método POST.
 
