@@ -42,13 +42,10 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 			Map<String, Object> body = objectMapper.readValue(bodyString, Map.class);
 			System.out.println("Parsed body: " + body);
 
-			// Obtenemos la expresión matemática
 			String expression = (String) body.get("expression");
 
-			// Sanitizamos la expresión
 			String sanitizedExpression = expression.replace("×", "*").replace("÷", "/").replace("−", "-");
 
-			// Evaluamos la expresión de manera segura
 			double result = evaluateExpression(sanitizedExpression);
 
 			Map<String, Object> responseBody = new HashMap<>();
@@ -71,9 +68,7 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 		}
 	}
 
-	// Método para evaluar la expresión de manera segura
 	private double evaluateExpression(String expression) throws Exception {
-		// Usamos la librería exp4j para evaluar la expresión
 		Expression e = new ExpressionBuilder(expression).build();
 		return e.evaluate();
 	}
